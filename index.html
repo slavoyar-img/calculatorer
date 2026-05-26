@@ -17,6 +17,14 @@
       font-family: Arial, sans-serif;
     }
 
+    /* Input row */
+    .top-row {
+      display: flex;
+      width: 100%;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
     .top-input,
     .bottom-display {
       width: 100%;
@@ -24,13 +32,35 @@
       font-size: 18px;
       padding: 10px;
       border: 2px solid black;
-      margin-bottom: 20px;
+    }
+
+    .top-input {
+      flex: 1;
     }
 
     .bottom-display {
       background: #f2f2f2;
+      margin-bottom: 20px;
     }
 
+    /* Blue square arrow button */
+    .submit-btn {
+      width: 50px;
+      height: 50px;
+      border: none;
+      background: #007bff;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #005fd1;
+    }
+
+    /* Grid */
     .grid {
       width: 100%;
       display: grid;
@@ -55,28 +85,33 @@
 
 <body>
 
-  <!-- Editable input -->
-  <input
-    type="text"
-    class="top-input"
-    placeholder="1+1"
-  />
+  <!-- Input + button -->
+  <div class="top-row">
+    <input
+      type="text"
+      class="top-input"
+      id="mathInput"
+      placeholder="1+1"
+    />
 
-  <!-- Read-only field -->
+    <button class="submit-btn" id="submitBtn">
+      →
+    </button>
+  </div>
+
+  <!-- Output -->
   <input
     type="text"
     class="bottom-display"
-    value="=3"
+    id="resultDisplay"
     readonly
   />
 
-  <!-- 20x10 grid -->
+  <!-- Grid -->
   <div class="grid" id="grid"></div>
 
-  <!-- External JavaScript -->
+  <!-- Scripts -->
   <script src="code.js"></script>
-
-  <!-- Your grid script -->
   <script src="grid.js"></script>
 
 </body>
