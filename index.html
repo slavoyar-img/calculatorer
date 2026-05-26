@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>20x10 Grid</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .top-input,
+    .bottom-display {
+      width: 100%;
+      height: 50px;
+      font-size: 18px;
+      padding: 10px;
+      border: 2px solid black;
+      margin-bottom: 20px;
+    }
+
+    .bottom-display {
+      background: #f2f2f2;
+    }
+
+    .grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(20, 1fr);
+      gap: 4px;
+    }
+
+    .grid button {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border: 1px solid black;
+      background: #e0e0e0;
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .grid button:hover {
+      background: #d0d0d0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Editable input -->
+  <input
+    type="text"
+    class="top-input"
+    placeholder="1+1"
+  />
+
+  <!-- Read-only field -->
+  <input
+    type="text"
+    class="bottom-display"
+    value="=3"
+    readonly
+  />
+
+  <!-- 20x10 grid -->
+  <div class="grid" id="grid"></div>
+
+  <!-- External JavaScript -->
+  <script src="code.js"></script>
+
+  <!-- Your grid script -->
+  <script src="grid.js"></script>
+
+</body>
+</html>
