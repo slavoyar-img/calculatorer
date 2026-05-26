@@ -2,7 +2,7 @@ const input = document.getElementById("mathInput");
 const button = document.getElementById("submitBtn");
 const output = document.getElementById("resultDisplay");
 
-// Replace with your real WolframAlpha App ID
+// Your WolframAlpha App ID
 const APP_ID = "J967PJ7U44";
 
 async function solveInput() {
@@ -13,22 +13,28 @@ async function solveInput() {
   output.value = "Loading...";
 
   try {
+
+    // Short Answers API endpoint
     const url =
-      `https://api.wolframalpha.com/v1/result?i=${encodeURIComponent(query)}&appid=${APP_ID}`;
+      `https://api.wolframalpha.com/v1/result?appid=${APP_ID}&i=${encodeURIComponent(query)}`;
 
     const response = await fetch(url);
 
+    // Get plain text result
+    const text = await response.text();
+
+    console.log(text);
+
     if (!response.ok) {
-      throw new Error("No result");
+      output.value = "No result";
+      return;
     }
 
-    const result = await response.text();
+    output.value = "= " + text;
 
-    output.value = "= " + result;
-
-  } catch (error) {
-    console.error(error);
-    output.value = "Error";
+  } catch (err) {
+    console.error(err);
+    output.value = "Connection error";
   }
 }
 
