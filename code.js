@@ -1,49 +1,41 @@
-const input = document.getElementById("mathInput");
-const button = document.getElementById("submitBtn");
-const output = document.getElementById("resultDisplay");
-
 // Your WolframAlpha App ID
 const APP_ID = "J967PJ7U44";
 
-async function solveInput() {
-  const query = input.value.trim();
-
-  if (!query) return;
-
-  output.value = "Loading...";
+async function solve(input) {
+  const url =
+    "https://api.wolframalpha.com/v1/result" +
+    `?appid=${encodeURIComponent(APP_ID)}` +
+    `&i=${encodeURIComponent(input)}`;
 
   try {
-
-    // Short Answers API endpoint
-    const url =
-      `https://api.wolframalpha.com/v1/result?appid=${APP_ID}&i=${encodeURIComponent(query)}`;
-
     const response = await fetch(url);
 
-    // Get plain text result
-    const text = await response.text();
-
-    console.log(text);
-
     if (!response.ok) {
-      output.value = "No result";
-      return;
+      throw new Error(`WolframAlpha API error: ${response.status}`);
     }
 
-    output.value = "= " + text;
-
+    return await response.text();
   } catch (err) {
     console.error(err);
-    output.value = "Connection error";
+    return "Error getting result.";
   }
 }
 
-// Button click
-button.addEventListener("click", solveInput);
+const submitBtn = document.getElementById("submitBtn");
+const mathInput = document.getElementById("mathInput");
+const resultDisplay = document.getElementById("resultDisplay");
 
-// Enter key
-input.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    solveInput();
+submitBtn.addEventListener("click", async () => {
+  const input = mathInput.value.trim();
+
+  if (!input) {
+    resultDisplay.value = "Please enter a math problem.";
+    return;
   }
+
+  resultDisplay.value = "Solving...";
+
+  const result = await solve(input);
+
+  resultDisplay.value = result;
 });
